@@ -1,0 +1,25 @@
+name: Unity Project Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify C# Scripts Exist
+        run: |
+          echo "Checking repository structure for Carrom game..."
+          if [ -d "Scripts" ]; then
+            echo "Success: Scripts directory found!"
+            ls -la Scripts/
+          else
+            echo "Error: Scripts directory missing!"
+            exit 1
+          fi
